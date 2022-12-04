@@ -1611,17 +1611,43 @@ const findMostCalories = () => {
     total: 0,
   };
 
+  const topThree = [0, 0, 0];
+
   calorieList.forEach((arr, index) => {
-    const total = arr.reduce(
-      (accumulator, currentValue) =>
-        parseInt(accumulator) + parseInt(currentValue)
+    const total = parseInt(
+      arr.reduce(
+        (accumulator, currentValue) =>
+          parseInt(accumulator) + parseInt(currentValue)
+      )
     );
     if (total > mostFound.total) {
       mostFound.total = total;
       mostFound.index = index;
     }
+    const threeLowest = {
+      total: topThree[0],
+      index: -1,
+    };
+    // Check if any of three top are lower than total
+    for (let i = 0; i < topThree.length; i++) {
+      if (topThree[i] === 0) {
+        threeLowest.total = total;
+        threeLowest.index = i;
+      } else if (topThree[i] < total && topThree[i] <= threeLowest.total) {
+        threeLowest.total = topThree[i];
+        threeLowest.index = i;
+      }
+    }
+    // If one of top three found lower than total then reassign.
+    if (threeLowest.index !== -1) {
+      topThree[threeLowest.index] = total;
+    }
   });
   console.log(mostFound);
+  console.log(
+    topThree,
+    topThree.reduce((acc, curr) => acc + curr)
+  );
 };
 
 findMostCalories();
