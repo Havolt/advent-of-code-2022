@@ -2510,13 +2510,35 @@ const MOVES = {
   Z: { name: "scissors", A: 0, B: 6, C: 3, points: 3 },
 };
 
-const checkPlan = () => {
+const RIGGED = {
+  A: { X: "Z", Y: "X", Z: "Y" },
+  B: { X: "X", Y: "Y", Z: "Z" },
+  C: { X: "Y", Y: "Z", Z: "X" },
+};
+
+// Gets score when rock paper scissors is second column
+const checkFirstPlan = () => {
   let tally = 0;
   rockPaperScissorGuide.forEach((game) => {
-    // console.log(MOVES[game[1]].points);
     tally += MOVES[game[1]].points + MOVES[game[1]][game[0]];
   });
   return tally;
 };
 
-console.log(checkPlan());
+// Gets score when win state is second column
+const checkSecondPlan = () => {
+  let tally = 0;
+  rockPaperScissorGuide.forEach((game) => {
+    const playedHand = RIGGED[game[0]][game[1]];
+    tally += MOVES[playedHand].points;
+    if (game[1] === "Y") {
+      tally += 3;
+    } else if (game[1] === "Z") {
+      tally += 6;
+    }
+  });
+  return tally;
+};
+
+// console.log(checkFirstPlan());
+console.log(checkSecondPlan());
