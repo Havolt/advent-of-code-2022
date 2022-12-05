@@ -2500,3 +2500,23 @@ const rockPaperScissorGuide = [
   ["A", "X"],
   ["B", "Z"],
 ];
+
+const MOVES = {
+  A: { name: "rock", X: 3, Y: 0, Z: 6, points: 1 },
+  B: { name: "paper", X: 6, Y: 3, Z: 0, points: 2 },
+  C: { name: "scissors", X: 0, Y: 6, Z: 3, points: 3 },
+  X: { name: "rock", A: 3, B: 0, C: 6, points: 1 },
+  Y: { name: "paper", A: 6, B: 3, C: 0, points: 2 },
+  Z: { name: "scissors", A: 0, B: 6, C: 3, points: 3 },
+};
+
+const checkPlan = () => {
+  let tally = 0;
+  rockPaperScissorGuide.forEach((game) => {
+    // console.log(MOVES[game[1]].points);
+    tally += MOVES[game[1]].points + MOVES[game[1]][game[0]];
+  });
+  return tally;
+};
+
+console.log(checkPlan());
