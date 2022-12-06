@@ -335,5 +335,14 @@ const findRepeats = (listOfRepeats) => {
   return repeats;
 };
 
+const sumAllRepeats = (repeatList) => {
+  repeatList.forEach((letter) => {
+    const charCode = letter.charCodeAt(0);
+
+    console.log(charCode);
+  });
+};
+
 const allRepeats = findRepeats(compartmentList);
 console.log(allRepeats);
+console.log(sumAllRepeats(allRepeats));
